@@ -81,6 +81,6 @@ exports.destroy = async (req, res) => {
     const slider = await Slider.findByPk(req.params.id);
     if (slider?.image) deleteImage(slider.image);
     await slider.destroy();
-    req.flash('success', 'Slider deleted successfully!');
+     req.flash('success', 'Slider delete successfully!');
     res.redirect('/dashboard/slider');
 };
