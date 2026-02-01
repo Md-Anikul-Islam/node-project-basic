@@ -18,7 +18,9 @@ exports.login = async (req, res) => {
         req.session.userName = user.name;
         res.redirect('/dashboard');
     } else {
-        res.send('Invalid credentials');
+        //res.send('Invalid credentials');
+         req.flash('error', 'Invalid email or password');
+         res.redirect('/login');
     }
 };
 
