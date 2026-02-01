@@ -1,0 +1,191 @@
+<%- include('../../admin/layout', {
+    title: title,
+    user: user,
+    body: `
+    <!-- Page Title -->
+    <div class="row">
+        <div class="col-12">
+            <div class="page-title-box">
+                <div class="page-title-right">
+                    <ol class="breadcrumb m-0">
+                        <li class="breadcrumb-item">CoderNetix</li>
+                        <li class="breadcrumb-item">Slider</li>
+                        <li class="breadcrumb-item active">Slider!</li>
+                    </ol>
+                </div>
+                <h4 class="page-title">Slider!</h4>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <!-- Card -->
+    <div class="card mt-3">
+        <div class="card-header d-flex justify-content-end">
+            <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addNewModal">
+                Add New
+            </button>
+        </div>
+
+        <div class="card-body">
+            <table class="table table-striped table-bordered w-100">
+                <thead>
+                    <tr>
+                        <th>S/N</th>
+                        <th>Title</th>
+                        <th>Details</th>
+                        <th>Image</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${sliders.map((slider, index) => `
+                        <tr>
+                            <td>${index + 1}</td>
+                            <td>${slider.title}</td>
+                            <td>${slider.details}</td>
+                            <td>
+                                <img src="/uploads/sliders/${slider.image}" style="max-width:50px">
+                            </td>
+                            <td>${slider.status ? 'Active' : 'Inactive'}</td>
+                            <td>
+                                <button class="btn btn-info btn-sm"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#editModal${slider.id}">
+                                    Edit
+                                </button>
+
+                                <button class="btn btn-danger btn-sm"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#deleteModal${slider.id}">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Edit Modal -->
+                        <div class="modal fade" id="editModal${slider.id}" tabindex="-1">
+                            <div class="modal-dialog modal-lg modal-dialog-centered">
+                                <div class="modal-content">
+                                    <form action="/dashboard/slider/update/${slider.id}" method="POST" enctype="multipart/form-data">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Edit Slider</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label class="form-label">Title</label>
+                                                <input type="text" name="title" class="form-control" value="${slider.title}" required>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label">Image</label>
+                                                <input type="file" name="image" class="form-control">
+                                                <img src="/uploads/sliders/${slider.image}" class="mt-2" style="max-width:50px">
+                                            </div>
+
+                                         <div class="mb-3">
+                                            <label class="form-label">Details</label>
+                                            <textarea name="details" class="form-control" required>${slider.details}</textarea>
+                                         </div>
+
+
+
+
+                                            <div class="mb-3">
+                                                <label class="form-label">Status</label>
+                                                <select name="status" class="form-select">
+                                                    <option value="1" ${slider.status ? 'selected' : ''}>Active</option>
+                                                    <option value="0" ${!slider.status ? 'selected' : ''}>Inactive</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="submit" class="btn btn-primary">Update</button>
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Delete Modal -->
+                        <div class="modal fade" id="deleteModal${slider.id}" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header bg-danger text-white">
+                                        <h5 class="modal-title">Confirm Delete</h5>
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        Are you sure you want to delete <b>${slider.title}</b> ?
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <a href="/dashboard/slider/delete/${slider.id}" class="btn btn-danger">
+                                            Delete
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Add Modal -->
+    <div class="modal fade" id="addNewModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+              <form method="POST" action="/dashboard/slider/store" enctype="multipart/form-data">
+
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Slider</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Title</label>
+                            <input type="text" name="title" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Image</label>
+                            <input type="file" name="image" class="form-control" required>
+                        </div>
+
+                         <div class="mb-3">
+                            <label class="form-label">Details</label>
+                            <textarea name="details" class="form-control" required></textarea>
+                         </div>
+
+
+
+                        <div class="mb-3">
+                            <label class="form-label">Status</label>
+                            <select name="status" class="form-select">
+                                <option value="1">Active</option>
+                                <option value="0">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    `
+}) %>

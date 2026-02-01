@@ -1,0 +1,119 @@
+<!-- <h2>Register</h2> -->
+<!-- <form action="/register" method="POST"> -->
+<!--     <input type="text" name="name" placeholder="Name" required /><br/> -->
+<!--     <input type="email" name="email" placeholder="Email" required /><br/> -->
+<!--     <input type="password" name="password" placeholder="Password" required /><br/> -->
+<!--     <button type="submit">Register</button> -->
+<!-- </form> -->
+<!-- <a href="/login">Login</a> -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Log In | CoderNetix Admin</title>
+
+    <!-- CSS -->
+    <link href="/backend/css/app.min.css" rel="stylesheet" type="text/css" id="app-style" />
+    <link href="/backend/css/icons.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- JS Config -->
+    <script src="/backend/js/config.js"></script>
+</head>
+
+<body class="authentication-bg position-relative">
+<div class="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5 position-relative">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xxl-8 col-lg-10">
+                <div class="card overflow-hidden">
+                    <div class="row g-0 align-items-center">
+
+                        <!-- Optional: remove this if no image -->
+
+                        <div class="col-lg-6 d-none d-lg-block p-2">
+                            <img src="/backend/images/1.png" alt="" class="img-fluid rounded h-200">
+                        </div>
+
+
+                        <div class="col-lg-6">
+                            <div class="d-flex flex-column h-100">
+                                <div class="auth-brand p-4">
+                                    <a href="/" class="logo-light">
+                                       <h1>CoderNetix Login</h1>>
+                                    </a>
+                                </div>
+                                <div class="p-4 pt-0 my-auto">
+                                    <h4 class="fs-20">Admin Sign In</h4>
+                                    <p class="text-muted mb-3">Enter your email address and password to access the admin.</p>
+
+                                    <!-- Login Form -->
+                                  <form action="/register" method="POST">
+                                        <div class="mb-3">
+                                           <label for="name" class="form-label">Name</label>
+                                           <input class="form-control" type="text" id="name" name="name" required placeholder="Enter your name">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="emailaddress" class="form-label">Email address</label>
+                                            <input class="form-control" type="email" id="emailaddress" name="email" required placeholder="Enter your email">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="password" class="form-label">Password</label>
+                                            <div class="input-group">
+                                                <input class="form-control" type="password" required id="password" name="password" placeholder="Enter your password">
+                                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                                    <i class="ri-eye-fill" id="eyeIcon"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-2 text-start">
+                                            <button class="btn btn-soft-primary w-100" type="submit">
+                                                <i class="ri-login-circle-fill me-1"></i> <span class="fw-bold">Register</span>
+                                            </button>
+                                        </div>
+
+                                         <div class="mb-2 text-start">
+                                             <a class="btn btn-soft-dark w-100" href="/login">
+                                                 <i class="ri-login-circle-fill me-1"></i> <span class="fw-bold">Already Have a Account</span>
+                                             </a>
+                                         </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer footer-alt fw-medium">
+    <span class="text-dark">
+        <script>document.write(new Date().getFullYear())</script> © Powered By CoderNetix
+    </span>
+</footer>
+
+<!-- JS -->
+<script src="/backend/js/vendor.min.js"></script>
+<script src="/backend/js/app.min.js"></script>
+
+<!-- Password toggle -->
+<script>
+    const passwordInput = document.getElementById('password');
+    const eyeIcon = document.getElementById('eyeIcon');
+    const togglePasswordButton = document.getElementById('togglePassword');
+    togglePasswordButton.addEventListener('click', function () {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        eyeIcon.classList.toggle('ri-eye-fill');
+        eyeIcon.classList.toggle('ri-eye-off-fill');
+    });
+</script>
+</body>
+</html>
+
